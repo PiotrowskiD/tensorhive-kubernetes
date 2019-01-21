@@ -1,0 +1,137 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: ds-worker-0
+spec:
+  selector:
+    name: ds
+    job: worker
+    task: "0"
+  ports:
+  - port: 5000
+---
+kind: ReplicaSet
+apiVersion: extensions/v1beta1
+metadata:
+  name: ds-worker-0
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: ds
+        job: worker
+        task: "0"
+    spec:
+      containers:
+      - name: tensorflow
+        image: piotrowskidariusz/deepspeech:patched
+        ports:
+        - containerPort: 5000
+        command:
+        - "/usr/bin/python"
+        - "./DeepSpeech.py"
+        args:
+        - "--train_files=ldc93s1/ldc93s1.csv"
+        - "--dev_files=ldc93s1/ldc93s1.csv"
+        - "--test_files=ldc93s1/ldc93s1.csv"
+        - "--log_level=0"
+        - "--train_batch_size=32"
+        - "--benchmark_steps=30"
+        - "--notest"
+        - "--task_index=0"
+        - "--job_name=worker"
+        - "--worker_hosts=ds-worker-0:5000,ds-worker-1:5000"
+        - "--ps_hosts=ds-ps-1:5000"
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: ds-worker-1
+spec:
+  selector:
+    name: ds
+    job: worker
+    task: "1"
+  ports:
+  - port: 5000
+---
+kind: ReplicaSet
+apiVersion: extensions/v1beta1
+metadata:
+  name: ds-worker-1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: ds
+        job: worker
+        task: "1"
+    spec:
+      containers:
+      - name: tensorflow
+        image: piotrowskidariusz/deepspeech:patched
+        ports:
+        - containerPort: 5000
+        command:
+        - "/usr/bin/python"
+        - "./DeepSpeech.py"
+        args:
+        - "--train_files=ldc93s1/ldc93s1.csv"
+        - "--dev_files=ldc93s1/ldc93s1.csv"
+        - "--test_files=ldc93s1/ldc93s1.csv"
+        - "--log_level=0"
+        - "--train_batch_size=32"
+        - "--benchmark_steps=30"
+        - "--notest"
+        - "--task_index=1"
+        - "--job_name=worker"
+        - "--worker_hosts=ds-worker-0:5000,ds-worker-1:5000"
+        - "--ps_hosts=ds-ps-0:5000"
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: ds-ps-0
+spec:
+  selector:
+    name: ds
+    job: ps
+    task: "0"
+  ports:
+  - port: 5000
+---
+kind: ReplicaSet
+apiVersion: extensions/v1beta1
+metadata:
+  name: ds-ps-0
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: ds
+        job: ps
+        task: "0"
+    spec:
+      containers:
+      - name: tensorflow
+        image: piotrowskidariusz/deepspeech:patched
+        ports:
+        - containerPort: 5000
+        command:
+        - "/usr/bin/python"
+        - "./DeepSpeech.py"
+        args:
+        - "--train_files=ldc93s1/ldc93s1.csv"
+        - "--dev_files=ldc93s1/ldc93s1.csv"
+        - "--test_files=ldc93s1/ldc93s1.csv"
+        - "--log_level=0"
+        - "--train_batch_size=32"
+        - "--benchmark_steps=30"
+        - "--notest"
+        - "--task_index=0"
+        - "--job_name=ps"
+        - "--worker_hosts=ds-worker-0:5000,ds-worker-1:5000"
+        - "--ps_hosts=ds-ps-0:5000"
