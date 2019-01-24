@@ -6,7 +6,7 @@ spec:
   containers:
     - args:
       - t2t-trainer
-      - --data_dir=/root/t2t_data
+      - --data_dir=/tensor2tensor/t2t_data
       - --problem=translate_ende_wmt32k
       - --model=transformer
       - --hparams_set=transformer_base_single_gpu
@@ -14,7 +14,7 @@ spec:
       - --log_level=30
       - --benchmark_steps=30
       name: t2t-container
-      image: piotrowskidariusz/tensor2tensor:patched
+      image: piotrowskidariusz/tensor2tensor:old
       env:
         - name: CUDA_VISIBLE_DEVICES
           value: "0"
