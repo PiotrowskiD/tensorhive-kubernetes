@@ -15,6 +15,9 @@ spec:
       - --benchmark_steps=30
       name: t2t-container
       image: piotrowskidariusz/tensor2tensor:patched
+      env:
+        - name: CUDA_VISIBLE_DEVICES
+          value: "0"
       resources:
         limits:
           nvidia.com/gpu: 1
