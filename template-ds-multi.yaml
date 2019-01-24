@@ -26,6 +26,12 @@ spec:
       containers:
       - name: tensorflow
         image: piotrowskidariusz/deepspeech:patched
+        env:
+          - name: CUDA_VISIBLE_DEVICES
+            value: "0"
+        resources:
+          limits:
+            nvidia.com/gpu: 1
         ports:
         - containerPort: 5000
         command:
@@ -72,6 +78,12 @@ spec:
       containers:
       - name: tensorflow
         image: piotrowskidariusz/deepspeech:patched
+        env:
+          - name: CUDA_VISIBLE_DEVICES
+            value: "0"
+        resources:
+          limits:
+            nvidia.com/gpu: 1
         ports:
         - containerPort: 5000
         command:
@@ -118,6 +130,9 @@ spec:
       containers:
       - name: tensorflow
         image: piotrowskidariusz/deepspeech:patched
+        env:
+          - name: CUDA_VISIBLE_DEVICES
+            value: ""
         ports:
         - containerPort: 5000
         command:
