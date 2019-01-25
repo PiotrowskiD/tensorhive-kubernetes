@@ -39,7 +39,7 @@ spec:
       - --benchmark_steps=30
       - --hparams='batch_size=$TBS'
       name: t2t-container
-      image: piotrowskidariusz/tensor2tensor:patched
+      image: piotrowskidariusz/tensor2tensor:old
       env:
         - name: CUDA_VISIBLE_DEVICES
           value: "$CVD"
