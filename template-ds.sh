@@ -39,7 +39,7 @@ spec:
       - --benchmark_steps=30
       - --notest
       name: ds-container
-      image: piotrowskidariusz/deepspeech:patched
+      image: piotrowskidariusz/deepspeech:test
       env:
         - name: CUDA_VISIBLE_DEVICES
           value: "$CVD"
