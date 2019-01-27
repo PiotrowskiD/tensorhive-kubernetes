@@ -18,7 +18,7 @@ else
     GPUS=$3
 fi
 
-echo `rm ds.yaml`
+echo `rm t2t.yaml`
 echo `touch ds.yaml`
 
 cat <<EOT >> ds.yaml
