@@ -35,7 +35,7 @@ spec:
         ports:
         - containerPort: 5000
         command:
-        - "/usr/bin/python"
+        - "/usr/bin/python3"
         - "./DeepSpeech.py"
         args:
         - "--train_files=ldc93s1/ldc93s1.csv"
@@ -87,7 +87,7 @@ spec:
         ports:
         - containerPort: 5000
         command:
-        - "/usr/bin/python"
+        - "/usr/bin/python3"
         - "./DeepSpeech.py"
         args:
         - "--train_files=ldc93s1/ldc93s1.csv"
@@ -136,7 +136,7 @@ spec:
         ports:
         - containerPort: 5000
         command:
-        - "/usr/bin/python"
+        - "/usr/bin/python3"
         - "./DeepSpeech.py"
         args:
         - "--train_files=ldc93s1/ldc93s1.csv"
