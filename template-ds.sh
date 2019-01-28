@@ -29,7 +29,7 @@ metadata:
 spec:
   containers:
     - args:
-      - python
+      - python3
       - ./DeepSpeech.py
       - --train_files=ldc93s1/ldc93s1.csv
       - --dev_files=ldc93s1/ldc93s1.csv
